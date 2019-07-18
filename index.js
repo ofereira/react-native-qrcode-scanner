@@ -32,6 +32,7 @@ export default class QRCodeScanner extends Component {
     cameraType: PropTypes.oneOf(['front', 'back']),
     customMarker: PropTypes.element,
     containerStyle: PropTypes.any,
+    cameraContainerViewStyle: PropTypes.any,
     cameraStyle: PropTypes.any,
     markerStyle: PropTypes.any,
     topViewStyle: PropTypes.any,
@@ -265,11 +266,13 @@ export default class QRCodeScanner extends Component {
   render() {
     return (
       <View style={[styles.mainContainer, this.props.containerStyle]}>
-        <View style={[styles.infoView, this.props.topViewStyle]}>
+        <View style={this.props.topViewStyle}>
           {this._renderTopContent()}
         </View>
-        {this._renderCamera()}
-        <View style={[styles.infoView, this.props.bottomViewStyle]}>
+        <View style={[styles.cameraView, this.props.cameraContainerViewStyle]}>
+          {this._renderCamera()}
+        </View>
+        <View style={this.props.bottomViewStyle}>
           {this._renderBottomContent()}
         </View>
       </View>
@@ -281,20 +284,15 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  infoView: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: Dimensions.get('window').width,
+
+  cameraView:{
+    flex: 1,
+    overflow: 'hidden',
   },
 
   camera: {
-    flex: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    height: Dimensions.get('window').width,
-    width: Dimensions.get('window').width,
+    height: '100%',
+    width: '100%',
   },
 
   rectangleContainer: {
